@@ -1,0 +1,113 @@
+\documentclass[14pt]{article}
+
+\usepackage[a4paper,margin=1cm,landscape]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{minted}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+\begin{center}
+	\section*{Python-Referenzkarte}
+\end{center}
+\begin{multicols}{3}
+
+\subsection*{Bibliotheken}
+\begin{minted}{python}
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+\end{minted}
+
+\subsection*{Pandas Series}
+\begin{minted}{python}
+series = pd.Series([79.98, 80.04, 80.02])
+series = pd.Series(
+	[1, 5, 9, 15, 20],
+	index=("mo", "di", "mi", "do", "fr")
+)
+\end{minted}
+
+\mintinline{python}{series.sum()}: Die Summe der Elemente von $series$ \\
+\mintinline{python}{series.mean()}: Der Durchschnitt der Elemente von $series$ \\
+\mintinline{python}{series.median()}: Der Median der Elemente von $series$ \\
+\mintinline{python}{series.var()}: Die Varianz der Elemente von $series$ \\
+\mintinline{python}{series.std()}: Standardabweichung von $series$ 
+
+\begin{minted}{python}
+series["mi"]
+series.index
+series.size
+\end{minted}
+
+\subsection*{Quantile und Quartilsdifferenz}
+\mintinline{python}{series.quantile(q=0.25, interpolation="midpoint")}
+Quantile (z.B. 25\%, 75\%, \dots) von $series$ \\
+
+\mintinline{python}{q75, q25 = series.quantile(q = [.75, .25], \ } \\
+\mintinline{python}{	interpolation="midpoint")} \\
+\mintinline{python}{iqr = q75 - q25} \\
+Quartilsdifferenz
+
+\subsection*{Numpy Basics}
+\begin{minted}{python}
+np.linspace(start=1, stop=2, num=4)
+np.arange(start=1, stop=7, step=.6)
+np.sqrt(2)
+np.square(2)
+np.round(2.35, decimals=1)
+\end{minted}
+
+\subsection*{Numpy Arrays}
+\begin{minted}{python}
+x = np.array([2, 1, 4, 5, -8])
+3*x
+x*x
+\end{minted}
+
+\subsection*{Pandas DataFrame}
+\begin{minted}{python}
+temp = pd.DataFrame({
+	"Luzern": ([1,5,9,15,20,25,25]),
+	"Basel": ([3,4,12,16,18,23,32]),
+	"Zuerich": ([8,6,10,17,23,22,24])},
+	index=["jan","feb","mar","apr","mai","jun","jul"]
+)
+temp.columns
+temp.mean(axis=1)
+temp.loc["mai":"jul","Luzern"]
+temp.loc[["mai","jul"],["Basel","Zuerich"]]
+
+mean = data.mean()['Physical.activity']
+data.loc[data['Physical.activity'] < mean, :]['Physical.activity']
+
+data = pd.read_csv(r"*child.csv", sep=",", index_col=0)
+data.shape
+data.describe()
+data.nsmallest(1, 'Infant.mortality')
+data.sort_values(by='Drunkenness', ascending=False).index[0:5]
+data.head()
+\end{minted}
+
+\subsection*{Matplotlib PyPlot}
+\begin{minted}{python}
+plt.subplot(221)
+series.plot(kind="hist", edgecolor="black")
+plt.title("Histogramm von Methode A")
+plt.xlabel("Methode A")
+plt.ylabel("Haeufigkeit")
+plt.show()
+series.plot(kind="hist", normed=True, edgecolor="black")
+geysir["Zeitspanne"].plot(kind="hist", bins=20,edgecolor="black")
+geysir["Eruptionsdauer"].plot(kind="hist", normed=True, cumulative=True, edgecolor="black")
+\end{minted}
+
+\end{multicols}
+\end{document}
+
