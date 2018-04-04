@@ -28,6 +28,7 @@
 \subsection*{Bibliotheken}
 \begin{python}
 import matplotlib.pyplot as plt
+import scipy.stats as st
 import pandas as pd
 import numpy as np
 \end{python}
@@ -64,6 +65,7 @@ Quartilsdifferenz von series berechnen
 \pythoninline{np.sqrt(2)}: Wurzel von Zahl berechnen \\
 \pythoninline{np.square(2)}: Quadrat von Zahl berechen \\
 \pythoninline{np.round(2.35, 1)}: Zahl auf x Nachkomastellen runden
+\pythoninline{np.corrcoef(x, y)}: Korrelationsmatrix berechnen \\
 
 \subsection*{Numpy Arrays}
 \begin{python}
@@ -92,11 +94,15 @@ frame = pd.DataFrame({
 
 \pythoninline{frame.columns}: Spaltenname auslesen \\ 
 \pythoninline{frame.shape}: Anzahl Zeilen und Spalten des Frames \\
+\pythoninline{frame.T}: Zeilen und Spalten vertauschen \\ 
 \pythoninline{frame.describe()}: Kennzahlen jeder Spalte anzeigen \\
 \pythoninline{frame.mean(axis=0)}: Durchschnitt pro Spalte berechnen \\ 
 \pythoninline{frame.mean(axis=1)}: Durchschnitt pro Zeile berechnen \\
 \pythoninline{frame.head(5)}: Erste n Zeilen des Frames anzeigen \\
 \pythoninline{frame.tail(5)}: Letzte n Zeilen des Frames anzeigen \\
+\pythoninline{frame.drop('mar', 0)}: Zeile mit dem Index xy löschen \\
+\pythoninline{frame.drop('Luzern', 1)}: Spalte xy löschen \\
+\pythoninline{frame.corr()}: Korrelationsmatrix berechnen \\
 
 \pythoninline{frame.loc["mar":"mai","Luzern"]} \\
 Auf einen Bereiche in einem DataFrame zugreifen \\
@@ -131,8 +137,9 @@ Werte für eine Frame aus einem CSV auslesen
 \pythoninline{plt.subplot(2, 3, 4)} oder \pythoninline{plt.subplot(234)} \\
 Sub-Plot mit 2 Zeilen und 3 Spalten erstellen und den \\ 
 nächsten Plot an der Position 4 einfügen. Die Position wird \\
-von links nach rechts und dann von oben nach unten gezählt \\
+von links nach rechts und dann von oben nach unten gezählt
 
+\subsection*{Plots erstellen}
 \pythoninline{series.plot(kind="hist", edgecolor="black")} \\
 Histogramm erstellen und Blaken mit Farbe umrahmen \\
 
@@ -142,8 +149,47 @@ Normiertes Histogramm erstellen \\
 \pythoninline{series.plot(kind="hist", bins=20, ...)} \\
 Anzahl Klassen des Histogramm manuell festlegen \\
 
-\pythoninline{series.plot(kind="hist", cumulative=True, ...)} \\
-Kumulatives Histogramm erstellen \\
+\pythoninline{series.plot(kind='hist', cumulative=True, 
+	histtype='step', normed=True)} \\
+Empirische kumulative Verteilungsfunktion plotten \\
+
+\pythoninline{series.plot(kind='box', title='Methode A')} \\
+Boxplot von series erstellen und Titel des Plots festlegen \\
+
+\pythoninline{series.plot(kind='scatter', x='wine', y='mor')} \\
+Streudiagramm mit zwei ausgewählten Achsen erstellen \\
+Parameter x und y müssen auf Indizes der series verweisen \\
+
+\pythoninline{b, a = np.polyfit(x_series, y_series, deg=1)} \\
+\pythoninline{x = np.linspace(x_series.min(), x_series.max())} \\
+\pythoninline{plt.plot(x, a + b * x, c='orange')} \\
+Plotten einer Regressionsgerade
+
+\subsection*{Verteilungen}
+\pythoninline{uniform.cdf(x=1, loc=0, scale=7)} \\
+$P(X \leq 1)$ falls $X \sim Unif(0, 7)$ \\
+
+\pythoninline{uniform.pdf(x=1, loc=0, scale=7)} \\
+Dichte an der Stelle x = 3 falls $X \sim Unif(0, 7)$ \\
+
+\pythoninline{uniform.rvs(size=3, loc=0, scale=7)} \\
+uniform verteilte Zufallszahlen, $X_i \sim Unif(0, 7)$ \\
+
+\pythoninline{st.expon.cdf(x=4, loc=0, scale=1/3)} \\
+$P(X \leq 4)$ falls $X \sim Exp(3)$ \\
+
+\pythoninline{st.expon.pdf(x=1, loc=0, scale=1/3)} \\
+Dichte an der Stelle x = 1 falls $X \sim Exp(3)$ \\
+
+
+\pythoninline{st.norm.cdf(x=130, loc=100, scale=15)} \\
+$P(X \leq 130)$ falls $X \sim \mathcal{N}(100, 15^2)$ \\
+
+\pythoninline{st.norm.ppf(q=0.05, loc=100, scale=15)} \\
+Quantile einer Normalverteilung \\
+
+\pythoninline{st.norm.cdf(x=1.5)} \\
+Standardnormalverteilung
 
 \end{multicols*}
 \end{document}
