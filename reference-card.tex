@@ -1,6 +1,6 @@
 \documentclass[14pt]{article}
 
-\usepackage[a4paper,margin=1cm,landscape]{geometry}
+\usepackage[a4paper,left=1cm,right=1cm,top=15mm,bottom=1cm,headsep=5mm,landscape]{geometry}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -10,15 +10,21 @@
 \usepackage{lipsum}
 \usepackage{minted}
 \usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\definecolor{headertext}{rgb}{0.5,0.5,0.5}
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\color{headertext} PYTHON - REFERENZKARTE}
+\chead{\color{headertext} STATISTICS FOR DATA SCIENCE}
+\rhead{\color{headertext} SEITE \thepage}
 
 \setlength{\parindent}{0cm}
 \newminted[python]{python}{}
 \newmintinline{python}{breaklines}
 
 \begin{document}
-\begin{center}
-	\section*{Python-Referenzkarte}
-\end{center}
 \begin{multicols*}{3}
 
 \subsection*{Bibliotheken}
