@@ -9,104 +9,142 @@
 \usepackage{multicol}
 \usepackage{lipsum}
 \usepackage{minted}
+\usepackage{xcolor}
 
 \setlength{\parindent}{0cm}
+\newminted[python]{python}{}
+\newmintinline{python}{breaklines}
+%\usemintedstyle{autumn}
+
+%\definecolor{textcolor}{rgb}{0.85,0.85,0.85}
+%\color{textcolor}
 
 \begin{document}
 \begin{center}
 	\section*{Python-Referenzkarte}
 \end{center}
-\begin{multicols}{3}
+\begin{multicols*}{3}
 
 \subsection*{Bibliotheken}
-\begin{minted}{python}
+\begin{python}
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-\end{minted}
+\end{python}
 
 \subsection*{Pandas Series}
-\begin{minted}{python}
+\begin{python}
 series = pd.Series([79.98, 80.04, 80.02])
 series = pd.Series(
   [1, 5, 9, 15, 20],
   index=("mo", "di", "mi", "do", "fr")
 )
-\end{minted}
+\end{python}
 
-\mintinline{python}{series.sum()}: Die Summe der Elemente von $series$ \\
-\mintinline{python}{series.mean()}: Der Durchschnitt der Elemente von $series$ \\
-\mintinline{python}{series.median()}: Der Median der Elemente von $series$ \\
-\mintinline{python}{series.var()}: Die Varianz der Elemente von $series$ \\
-\mintinline{python}{series.std()}: Standardabweichung von $series$ \\
-\mintinline{python}{series.index}: Zeilenbeschrift der Elemente von $series$ \\
-\mintinline{python}{series.size}: Die Anzahl der Elemente von $series$ \\
-\mintinline{python}{series[1]}: Zugriff auf ein Elemente via Index \\
-\mintinline{python}{series["mi"]}: Zugriff via Zeilenbeschrift 
+\pythoninline{series.sum()}: Die Summe der Elemente von series \\
+\pythoninline{series.mean()}: Der Durchschnitt der Elemente von series \\
+\pythoninline{series.median()}: Der Median der Elemente von series \\
+\pythoninline{series.var()}: Die Varianz der Elemente von series \\
+\pythoninline{series.std()}: Standardabweichung von series \\
+\pythoninline{series.index}: Zeilenbeschrift der Elemente von series \\
+\pythoninline{series.size}: Die Anzahl der Elemente von series \\
+\pythoninline{series[1]}: Zugriff auf ein Elemente via Index \\
+\pythoninline{series["mi"]}: Zugriff via Zeilenbeschrift 
 
 \subsection*{Quantile und Quartilsdifferenz}
-\mintinline{python}{series.quantile(q=0.25, interpolation="midpoint")}
-Quantile (z.B. 25\%, 75\%, \dots) von $series$ \\
+\pythoninline{series.quantile(q=0.25, interpolation="midpoint")}
+Quantile (z.B. 25\%, 75\%, \dots) von series \\
 
-\mintinline{python}{q75, q25 = series.quantile(q = [.75, .25], \ } \\
-\mintinline{python}{	interpolation="midpoint")} \\
-\mintinline{python}{iqr = q75 - q25} \\
-Quartilsdifferenz
+\pythoninline{q75, q25 = series.quantile(q = [.75, .25], 
+	interpolation="midpoint")} \\
+\pythoninline{iqr = q75 - q25} \\
+Quartilsdifferenz von series berechnen
 
 \subsection*{Numpy Basics}
-\begin{minted}{python}
-np.linspace(start=1, stop=2, num=4)
-np.arange(start=1, stop=7, step=.6)
-np.sqrt(2)
-np.square(2)
-np.round(2.35, decimals=1)
-\end{minted}
+\pythoninline{np.sqrt(2)}: Wurzel von Zahl berechnen \\
+\pythoninline{np.square(2)}: Quadrat von Zahl berechen \\
+\pythoninline{np.round(2.35, 1)}: Zahl auf x Nachkomastellen runden
 
 \subsection*{Numpy Arrays}
-\begin{minted}{python}
-x = np.array([2, 1, 4, 5, -8])
-3*x
-x*x
-\end{minted}
+\begin{python}
+arr = np.array([2, 1, 4, 5, -8, 10, 13])
+\end{python}
+
+\pythoninline{3*arr}: Jede Array-Komponent mit Zahl multiplizieren \\
+
+\pythoninline{np.linspace(start=1, stop=2, num=4)} \\
+num Zahlen zwischen start und stop \\
+In diesem Beispiel: [1.0, 1.333, 1.666, 2.0] \\
+
+\pythoninline{np.arange(start=1, stop=4, step=.6)} \\
+Zahlen von start bis stop mit inkrement step\\
+In diesem Beispiel: [1.0, 1.6, 2.2, 2.8, 3.4]
 
 \subsection*{Pandas DataFrame}
-\begin{minted}{python}
+\begin{python}
 frame = pd.DataFrame({
   "Luzern": ([1, 5, 9, 15, 20]),
   "Basel": ([3, 4, 12, 16, 18]),
   "Zuerich": ([8, 6, 10, 17, 23])
   }, index=["jan", "feb", "mar", "apr", "mai"]
 )
+\end{python}
 
-frame.columns
-frame.mean(axis=1)
-frame.loc["mar":"mai","Luzern"]
-frame.loc[["mar","mai"],["Basel","Zuerich"]]
+\pythoninline{frame.columns}: Spaltenname auslesen \\ 
+\pythoninline{frame.shape}: Anzahl Zeilen und Spalten des Frames \\
+\pythoninline{frame.describe()}: Kennzahlen jeder Spalte anzeigen \\
+\pythoninline{frame.mean(axis=0)}: Durchschnitt pro Spalte berechnen \\ 
+\pythoninline{frame.mean(axis=1)}: Durchschnitt pro Zeile berechnen \\
+\pythoninline{frame.head(5)}: Erste n Zeilen des Frames anzeigen \\
+\pythoninline{frame.tail(5)}: Letzte n Zeilen des Frames anzeigen \\
 
-mean = data.mean()['Physical.activity']
-data.loc[data['Physical.activity'] < mean, :]['Physical.activity']
+\pythoninline{frame.loc["mar":"mai","Luzern"]} \\
+Auf einen Bereiche in einem DataFrame zugreifen \\
 
-data = pd.read_csv(r"*child.csv", sep=",", index_col=0)
-data.shape
-data.describe()
-data.nsmallest(1, 'Infant.mortality')
-data.sort_values(by='Drunkenness', ascending=False).index[0:5]
-data.head()
-\end{minted}
+\pythoninline{frame.loc[["mar","mai"],["Basel","Zuerich"]]} \\
+Auf ausgewählt Elemente in einem DataFrame zugreifen
+
+\subsection*{DataFrame filtern}
+\pythoninline{frame.sort_values(by='Luzern', ascending=False)} \\
+Daten im Frame nach einer Spalte sortieren \\
+
+\pythoninline{frame.nsmallest(1, 'Luzern')} \\
+\pythoninline{frame.nlargest(1, 'Luzern')} \\
+Daten im Frame nach einer Spalte sortieren und dann \\ 
+n Zeilen mit grösstem oder kleinstem Werte zurückgeben \\
+
+\pythoninline{mean = frame.mean()['Luzern']} \\
+\pythoninline{frame.loc[frame['Luzern'] < mean, :]} \\
+Daten anhand des Wertes einer Spalte filtern
+
+\subsection*{Werte einlesen}
+\pythoninline{frame = pd.read_csv(r"./data.csv", sep=",", 
+	index_col=0)} \\
+Werte für eine Frame aus einem CSV auslesen 
 
 \subsection*{Matplotlib PyPlot}
-\begin{minted}{python}
-plt.subplot(221)
-series.plot(kind="hist", edgecolor="black")
-plt.title("Histogramm von Methode A")
-plt.xlabel("Methode A")
-plt.ylabel("Haeufigkeit")
-plt.show()
-series.plot(kind="hist", normed=True, edgecolor="black")
-geysir["Zeitspanne"].plot(kind="hist", bins=20,edgecolor="black")
-geysir["Eruptionsdauer"].plot(kind="hist", normed=True, cumulative=True, edgecolor="black")
-\end{minted}
+\pythoninline{plt.title("...")}: Titel des Plots festlegen \\
+\pythoninline{plt.xlabel("...")}: X-Achsenbeschriftung festlegen \\
+\pythoninline{plt.ylabel("...")}: Y-Achsenbeschriftung festlegen \\
+\pythoninline{plt.show()}: Plot anzeigen \\
 
-\end{multicols}
+\pythoninline{plt.subplot(2, 3, 4)} oder \pythoninline{plt.subplot(234)} \\
+Sub-Plot mit 2 Zeilen und 3 Spalten erstellen und den \\ 
+nächsten Plot an der Position 4 einfügen. Die Position wird \\
+von links nach rechts und dann von oben nach unten gezählt \\
+
+\pythoninline{series.plot(kind="hist", edgecolor="black")} \\
+Histogramm erstellen und Blaken mit Farbe umrahmen \\
+
+\pythoninline{series.plot(kind="hist", normed=True, ...)}
+Normiertes Histogramm erstellen \\
+
+\pythoninline{series.plot(kind="hist", bins=20, ...)} \\
+Anzahl Klassen des Histogramm manuell festlegen \\
+
+\pythoninline{series.plot(kind="hist", cumulative=True, ...)} \\
+Kumulatives Histogramm erstellen \\
+
+\end{multicols*}
 \end{document}
 
