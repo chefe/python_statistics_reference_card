@@ -68,6 +68,8 @@ Quantile (z.B. 25\%, 75\%, \dots) von series \\
 \pythoninline{iqr = q75 - q25} \\
 Quartilsdifferenz von series berechnen
 
+\columnbreak
+
 \subsection*{Numpy Basics}
 \pythoninline{np.e}: Konstante mit Wert von $e$ \\
 \pythoninline{np.pi}:  Konstante mit Wert von $\pi$ \\
@@ -100,7 +102,16 @@ Neues Array hat n Zeilen mit je m Elementen \\
 
 \pythoninline{new_arr = np.random.choice(arr, size=1000)} \\
 Neues Array mit der Grösse size erstellen und zufällig \\
-mit Werten aus dem übergebenen Array befüllen
+mit Werten aus dem übergebenen Array befüllen \\
+
+\pythoninline{np.percentile(arr, q=[2.5, 97.5])} \\
+Werte der Quantile eines Datensatz anzeigen \\
+
+\pythoninline{np.sum(arr > 0)} \\
+Werte grösser als x in einem Array zählen \\
+
+\pythoninline{np.loadtxt(r"./data.txt")} \\
+Daten für ein Array aus einem Textfile laden
 
 \subsection*{Pandas DataFrame}
 \begin{python}
@@ -142,6 +153,8 @@ n Zeilen mit grösstem oder kleinstem Werte zurückgeben \\
 \pythoninline{mean = frame.mean()['Luzern']} \\
 \pythoninline{frame.loc[frame['Luzern'] < mean, :]} \\
 Daten anhand des Wertes einer Spalte filtern
+
+\columnbreak
 
 \subsection*{Werte einlesen}
 \pythoninline{frame = pd.read_csv(r"./data.csv", sep=",", 
@@ -221,7 +234,8 @@ Standardnormalverteilung \\
 \pythoninline{st.binom.cdf(k=5100, n=10000, p=0.5)} \\
 $P(X \leq 5100)$ falls $X \sim Bin(10000, 0.5)$ \\
 
-\pythoninline{st.t.cdf(x=168, df=149, loc=164, scale=10/np.sqrt(150))} \\
+\pythoninline{st.t.cdf(x=168, df=149, loc=164, } \\
+\pythoninline{	scale=10/np.sqrt(150))} \\
 $P[\overline{X}_{150} \leq 168]$ falls $u = 164$, $\hat{o} = 10$ und $T \sim t_{149}$ \\
 
 \pythoninline{st.t.ppf(0.05, df=149)} \\
@@ -241,6 +255,31 @@ generiert n chi-verteilte Zahlen mit v Freiheitsgrade
 \pythoninline{f = lambda x: x * (15 - x/4)} \\
 \pythoninline{ans, _ = quad(f, 0, 60)} \\
 In diesem Fall das Integral: $\int_{0}^{60} x * (15 - \frac{x}{4})$
+
+\subsection*{Vertrauensintervall}
+\pythoninline{st.t.interval(alpha=0.95, df=12, loc=80.02, } \\
+\pythoninline{	scale=0.024/np.sqrt(13))} \\
+95\% Vertrauensintervall einer t-Verteilung \\
+
+\pythoninline{st.norm.interval(alpha=0.99, loc=31, } \\
+\pythoninline{	scale=6/np.sqrt(10))} \\
+99\% Vertrauensintervall einer Normalverteilung
+
+\subsection*{Statistische Tests}
+\pythoninline{st.binom_test(x=3, n=5, p=0.5)} \\
+Vorzeichentest \\
+
+\pythoninline{st.wilcoxon(arr, correction=True)} \\
+Wilcoxon-Test \\
+
+\pythoninline{st.ttest_rel(series1, series2)} \\
+Statistischer Test für gepaarte Stichproben  \\
+
+\pythoninline{st.ttest_ind(x, y, equal_var=False)} \\
+Statistischer Test für ungepaarte Stichproben  \\
+
+\pythoninline{st.mannwhitneyu(x, y)} \\
+Mann-Whitney U-Test (aka Wilcoxon Rank-sum Test)
 
 \end{multicols*}
 \end{document}
