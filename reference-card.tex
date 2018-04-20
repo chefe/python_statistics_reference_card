@@ -35,41 +35,6 @@ import pandas as pd
 import numpy as np
 \end{python}
 
-\subsection*{Pandas Series}
-\begin{python}
-series = pd.Series([79.98, 80.04, 80.02])
-series = pd.Series(
-  [1, 5, 9, 15, 20],
-  index=("mo", "di", "mi", "do", "fr")
-)
-\end{python}
-
-\pythoninline{series.sum()}: Die Summe der Elemente von series \\
-\pythoninline{series.mean()}: Der Durchschnitt der Elemente von series \\
-\pythoninline{series.median()}: Der Median der Elemente von series \\
-\pythoninline{series.var()}: Die Varianz der Elemente von series \\
-\pythoninline{series.std()}: Standardabweichung von series \\
-\pythoninline{series.count()}: Anzahl Elemente der series \\
-\pythoninline{series.round(0)}: Werte auf x Nachkomastellen runden \\
-\pythoninline{series.index}: Zeilenbeschrift der Elemente von series \\
-\pythoninline{series.size}: Die Anzahl der Elemente von series \\
-\pythoninline{series[1]}: Zugriff auf ein Elemente via Index \\
-\pythoninline{series["mi"]}: Zugriff via Zeilenbeschrift \\
-
-\pythoninline{series.hist(bins=[0,1,10,11,12])} \\
-Histogramm mit angegebenen Klassengrenzen plotten 
-
-\subsection*{Quantile und Quartilsdifferenz}
-\pythoninline{series.quantile(q=0.25, interpolation="midpoint")}
-Quantile (z.B. 25\%, 75\%, \dots) von series \\
-
-\pythoninline{q75, q25 = series.quantile(q = [.75, .25], 
-	interpolation="midpoint")} \\
-\pythoninline{iqr = q75 - q25} \\
-Quartilsdifferenz von series berechnen
-
-\columnbreak
-
 \subsection*{Numpy Basics}
 \pythoninline{np.e}: Konstante mit Wert von $e$ \\
 \pythoninline{np.pi}:  Konstante mit Wert von $\pi$ \\
@@ -108,10 +73,48 @@ mit Werten aus dem übergebenen Array befüllen \\
 Werte der Quantile eines Datensatz anzeigen \\
 
 \pythoninline{np.sum(arr > 0)} \\
-Werte grösser als x in einem Array zählen \\
+Werte grösser als x in einem Array zählen
 
+\subsection*{Pandas Series}
+\begin{python}
+series = pd.Series([79.98, 80.04, 80.02])
+series = pd.Series(
+  [1, 5, 9, 15, 20],
+  index=("mo", "di", "mi", "do", "fr")
+)
+\end{python}
+
+\pythoninline{series.sum()}: Die Summe der Elemente von series \\
+\pythoninline{series.mean()}: Der Durchschnitt der Elemente von series \\
+\pythoninline{series.median()}: Der Median der Elemente von series \\
+\pythoninline{series.var()}: Die Varianz der Elemente von series \\
+\pythoninline{series.std()}: Standardabweichung von series \\
+\pythoninline{series.count()}: Anzahl Elemente der series \\
+\pythoninline{series.round(0)}: Werte auf x Nachkomastellen runden \\
+\pythoninline{series.index}: Zeilenbeschrift der Elemente von series \\
+\pythoninline{series.size}: Die Anzahl der Elemente von series \\
+\pythoninline{series[1]}: Zugriff auf ein Elemente via Index \\
+\pythoninline{series["mi"]}: Zugriff via Zeilenbeschrift \\
+
+\pythoninline{series.hist(bins=[0,1,10,11,12])} \\
+Histogramm mit angegebenen Klassengrenzen plotten 
+
+\subsection*{Quantile und Quartilsdifferenz}
+\pythoninline{series.quantile(q=0.25, interpolation="midpoint")}
+Quantile (z.B. 25\%, 75\%, \dots) von series \\
+
+\pythoninline{q75, q25 = series.quantile(q = [.75, .25], 
+	interpolation="midpoint")} \\
+\pythoninline{iqr = q75 - q25} \\
+Quartilsdifferenz von series berechnen
+
+\subsection*{Werte einlesen}
 \pythoninline{np.loadtxt(r"./data.txt")} \\
-Daten für ein Array aus einem Textfile laden
+Daten für ein Array aus einem Textfile laden \\
+
+\pythoninline{frame = pd.read_csv(r"./data.csv", sep=",", 
+	index_col=0)} \\
+Werte für eine Frame aus einem CSV auslesen 
 
 \subsection*{Pandas DataFrame}
 \begin{python}
@@ -153,13 +156,6 @@ n Zeilen mit grösstem oder kleinstem Werte zurückgeben \\
 \pythoninline{mean = frame.mean()['Luzern']} \\
 \pythoninline{frame.loc[frame['Luzern'] < mean, :]} \\
 Daten anhand des Wertes einer Spalte filtern
-
-\columnbreak
-
-\subsection*{Werte einlesen}
-\pythoninline{frame = pd.read_csv(r"./data.csv", sep=",", 
-	index_col=0)} \\
-Werte für eine Frame aus einem CSV auslesen 
 
 \subsection*{Matplotlib PyPlot}
 \pythoninline{plt.title("...")}: Titel des Plots festlegen \\
