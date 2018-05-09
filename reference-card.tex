@@ -31,6 +31,7 @@
 \begin{python}
 import matplotlib.pyplot as plt
 import scipy.stats as st
+import seaborn as sns
 import pandas as pd
 import numpy as np
 \end{python}
@@ -69,11 +70,21 @@ Neues Array hat n Zeilen mit je m Elementen \\
 Neues Array mit der Grösse size erstellen und zufällig \\
 mit Werten aus dem übergebenen Array befüllen \\
 
+\pythoninline{arr = np.arange(1, 25)} \\
+\pythoninline{np.random.choice(arr, 24, replace=False)} \\
+Zahlen 1 bis 24 zufällig sortieren \\
+
 \pythoninline{np.percentile(arr, q=[2.5, 97.5])} \\
 Werte der Quantile eines Datensatz anzeigen \\
 
 \pythoninline{np.sum(arr > 0)} \\
-Werte grösser als x in einem Array zählen
+Werte grösser als x in einem Array zählen \\
+
+\pythoninline{np.tile(arr, x)} \\
+Array x-Mal wiederholen und aneinander hängen \\
+
+\pythoninline{np.repeat(["M1","M2","M3"], [x1, x2, x3])} \\
+Jeder Werte des Array mit Index $i$, $x_i$-mal wiederholen
 
 \subsection*{Pandas Series}
 \begin{python}
@@ -114,7 +125,10 @@ Daten für ein Array aus einem Textfile laden \\
 
 \pythoninline{frame = pd.read_csv(r"./data.csv", sep=",", 
 	index_col=0)} \\
-Werte für eine Frame aus einem CSV auslesen 
+Werte für eine Frame aus einem CSV auslesen \\
+
+\pythoninline{pd.read_table(r"./gamma.txt", delim_whitespace=True)} \\
+leerzeichengetrennte Daten einlesen mit Pandas
 
 \subsection*{Pandas DataFrame}
 \begin{python}
@@ -280,7 +294,58 @@ Statistischer Test für gepaarte Stichproben  \\
 Statistischer Test für ungepaarte Stichproben  \\
 
 \pythoninline{st.mannwhitneyu(x, y)} \\
-Mann-Whitney U-Test (aka Wilcoxon Rank-sum Test)
+Mann-Whitney U-Test (aka Wilcoxon Rank-sum Test) \\
+
+\pythoninline{st.ttest_1samp(series, 1).pvalue} \\
+P-Wert eines T-Tests für eine Series berechnen
+
+\subsection*{Varianzanalyse}
+\pythoninline{from statsmodels.graphics.factorplots} \\
+\pythoninline{	import interaction_plot} \\
+\pythoninline{from statsmodels.stats.anova import anova_lm} \\
+\pythoninline{from statsmodels.formula.api import ols} \\
+\pythoninline{from patsy.contrasts import Sum} \\
+Benötigte Bibliotheksfunktionen \\
+
+\pythoninline{sns.stripplot(x="Treatment", y="steak_id", 
+	data=frame)} \\
+Varianz-Analyse mit Stripcharts \\
+
+\pythoninline{sns.boxplot(x="Treatment", y="steak_id", 
+	data=frame)} \\
+Varianz-Analyse mit Boxplots \\
+
+\pythoninline{sns.distplot(Fstat, kde=False, norm_hist=True, 
+	hist_kws=dict(edgecolor="black", 
+	linewidth=2))} \\
+F-Statistik plotten \\
+ 
+\pythoninline{fit = ols("steak_id~Treatment", data=frame).fit()} \\
+\pythoninline{fit.summary()} \\
+Gruppenmittelmodell berechnen \\
+
+\pythoninline{fit_pred = fit.get_prediction()} \\
+\pythoninline{fit_pred.conf_int()} \\
+Vertrauensintervalle für Gruppenmittelwerte \\
+
+\pythoninline{interaction_plot(x=frame["Batch"], }\\
+\pythoninline{	trace=frame["Methode"], response=frame["Y"])} \\
+Interaktionsplot zwischen einer Zielgrösse und den Faktoren \\
+- entlang der y -Achse die Zielgrösse (response) \\
+- entlang der x -Achse der durch x festgelegte Faktor \\
+- für jede Stufe in trace wird dann eine Linie gezogen \\
+
+\pythoninline{fit = ols("steak_id~Treatment", data=frame).fit()} \\
+\pythoninline{anova_lm(fit)} \\
+Anova Tabelle berechnen \\
+
+\pythoninline{fit = ols("Y ~ C(Methode, Sum) + C(Batch, Sum)", 
+	data=frame).fit()} \\
+Zweiweg-Varianzanalyse mit Blöcken \\
+
+\pythoninline{fit = ols("Y ~ C(Konz,Sum) * C(Temp,Sum)", 
+	data=frame).fit()} \\
+Faktorielle Experimente mit zwei Faktoren
 
 \end{multicols*}
 \end{document}
