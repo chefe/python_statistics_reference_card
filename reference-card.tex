@@ -78,6 +78,9 @@ In diesem Beispiel die 2.5\%- und 97.5\%-Quantile \\
 \pythoninline{np.sum(arr > x)} \\
 Werte grösser als \textit{x} in einem Array zählen \\
 
+\pythoninline{np.nanmean(arr)} \\
+Mittelwert berechnen und NaN ignorieren \\
+
 \pythoninline{np.tile(arr, x)} \\
 Array \textit{x}-Mal wiederholen und aneinander hängen \\
 
@@ -201,6 +204,9 @@ Empirische kumulative Verteilungsfunktion plotten \\
 \pythoninline{series.plot(kind='box', title='Methode A')} \\
 Boxplot von \textit{series} erstellen und Titel des Plots festlegen \\
 
+\pythoninline{frame.boxplot("T", by="Time")} \\
+Daten gruppieren und durch einen Boxplot anzeigen \\
+
 \pythoninline{frame.plot(kind='scatter', x='wine', y='mor')} \\
 Streudiagramm mit zwei ausgewählten Achsen erstellen \\
 Parameter \textit{x} und \textit{y} müssen auf Indizes des \textit{frame} verweisen \\
@@ -249,6 +255,9 @@ Standardnormalverteilung \\
 
 \pythoninline{st.binom.cdf(k=5100, n=10000, p=0.5)} \\
 $P(X \leq 5100)$ falls $X \sim Bin(10000, 0.5)$ \\
+
+\pythoninline{st.binom.pmf(k=1000, n=1000, p=0.5)} \\
+Wert der Wahrscheinlichkeitsdichtefunktion an der Stelle $k$ \\
 
 \pythoninline{st.t.cdf(x=168, df=149, loc=164, } \\
 \pythoninline{	scale=10/np.sqrt(150))} \\
@@ -315,8 +324,7 @@ Varianz-Analyse mit Stripcharts zwischen \textit{x} und \textit{y} \\
 Varianz-Analyse mit Boxplots zwischen \textit{x} und \textit{y} \\
 
 \pythoninline{sns.distplot(Fstat, kde=False, norm_hist=True, 
-	hist_kws=dict(edgecolor="black", 
-	linewidth=2))} \\
+	hist_kws=dict(edgecolor="black", linewidth=2))} \\
 F-Statistik plotten \\
  
 \pythoninline{fit = ols("steak_id~Treatment", data=frame).fit()} \\
@@ -345,6 +353,24 @@ Zweiweg-Varianzanalyse mit Blöcken \\
 \pythoninline{formula = "Y ~ C(Konz,Sum) * C(Temp,Sum)"} \\
 \pythoninline{fit = ols(formula, data=frame).fit()} \\
 Faktorielle Experimente mit zwei Faktoren
+
+\subsection*{Zeitreihen}
+\pythoninline{from statsmodels.tsa.seasonal } \\
+\pythoninline{	import seasonal_decompose} \\
+Benötigte Bibliotheksfunktionen für Zeitreihen \\
+
+\pythoninline{col = frame["TravelDate"]} \\
+\pythoninline{frame["TravelDate"] = pd.DatetimeIndex(col)} \\
+\pythoninline{frame.set_index("TravelDate", inplace=True)} \\
+\pythoninline{AirP.plot()} \\
+Zeitreihe mit Datums-Index plotten \\
+
+\pythoninline{frame["Passengers"].rolling(window=12).mean()} \\
+Bewegendes Mittel (moving average) berechnen \\
+
+\pythoninline{seasonal_decompose(frame["Passengers"], } \\
+\pythoninline{	model="additive", freq=12).plot()} \\
+Zerlegen einer Zeitreihe in die verschiedenen Faktoren
 
 \end{multicols*}
 \end{document}
