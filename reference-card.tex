@@ -66,6 +66,8 @@ Neues Array hat \textit{n} Zeilen mit je \textit{m} Elementen \\
 Neues Array mit der Grösse \textit{size} erstellen und zufällig \\
 mit Werten aus dem übergebenen Array befüllen \\
 
+\columnbreak
+
 \pythoninline{arr = np.arange(1, 25)} \\
 \pythoninline{np.random.choice(arr, 24, replace=False)} \\
 Zahlen zufällig sortieren \\
@@ -109,10 +111,7 @@ series = pd.Series(
 \pythoninline{series.index}: Zeilenbeschrift der Elemente von \textit{series} \\
 \pythoninline{series.size}: Die Anzahl der Elemente von \textit{series} \\
 \pythoninline{series[1]}: Zugriff auf ein Elemente via Index \\
-\pythoninline{series["mi"]}: Zugriff via Zeilenbeschrift \\
-
-\pythoninline{series.hist(bins=[0, 1, 10, 11, 12])} \\
-Histogramm mit angegebenen Klassengrenzen plotten 
+\pythoninline{series["mi"]}: Zugriff via Zeilenbeschrift
 
 \subsection*{Quantile und Quartilsdifferenz}
 \pythoninline{series.quantile(q=0.25, interpolation="midpoint")}
@@ -155,15 +154,15 @@ frame = pd.DataFrame({
 \pythoninline{frame.tail(n)}: Letzte \textit{n} Zeilen des Frames anzeigen \\
 \pythoninline{frame.drop(x, 0)}: Zeile mit dem Index \textit{x} löschen \\
 \pythoninline{frame.drop(x, 1)}: Spalte \textit{x} löschen \\
-\pythoninline{frame.corr()}: Korrelationsmatrix berechnen \\
+\pythoninline{frame.corr()}: Korrelationsmatrix berechnen
 
+\subsection*{DataFrame filtern}
 \pythoninline{frame.loc["mar":"mai","Luzern"]} \\
 Auf einen Bereiche in einem DataFrame zugreifen \\
 
 \pythoninline{frame.loc[["mar","mai"],["Basel","Zuerich"]]} \\
-Auf ausgewählt Elemente in einem DataFrame zugreifen
+Auf ausgewählt Elemente in einem DataFrame zugreifen \\
 
-\subsection*{DataFrame filtern}
 \pythoninline{frame.sort_values(by='Luzern', ascending=False)} \\
 Daten im Frame nach einer Spalte sortieren \\
 
@@ -182,17 +181,26 @@ Daten anhand des Wertes einer Spalte filtern
 \pythoninline{plt.ylabel("...")}: Y-Achsenbeschriftung festlegen \\
 \pythoninline{plt.show()}: Plot anzeigen \\
 
-\pythoninline{plt.subplot(2, 3, 4)} oder \pythoninline{plt.subplot(234)} \\
+\pythoninline{plt.subplot(nrows=2, ncols=3, index=4)} \\
+\pythoninline{plt.subplot(234)} \\
 Sub-Plot mit 2 Zeilen und 3 Spalten erstellen und den \\ 
 nächsten Plot an der Position 4 einfügen. Die Position wird \\
 von links nach rechts und dann von oben nach unten gezählt
 
 \subsection*{Plots erstellen}
+\pythoninline{series.hist(bins=[0, 1, 10, 11, 12])} \\
+Histogramm mit angegebenen Klassengrenzen plotten \\
+
 \pythoninline{series.plot(kind="hist", edgecolor="black")} \\
 Histogramm erstellen und Balken mit Farbe umrahmen \\
 
 \pythoninline{series.plot(kind="hist", normed=True, ...)}
-Normiertes Histogramm erstellen \\
+Normiertes Histogramm erstellen
+
+\columnbreak
+
+\pythoninline{plt.hist(series.T, bins=20, density=True)} \\
+Plotten eines Histograms mit der Fläche 1 \\
 
 \pythoninline{series.plot(kind="hist", bins=20, ...)} \\
 Anzahl Klassen des Histogramm manuell festlegen \\
@@ -218,10 +226,7 @@ Plotten einer Regressionsgerade, bei welcher die Daten \\
 einem Polynom ersten Grades angeglichen wurden \\
 
 \pythoninline{st.probplot(arr, plot=plt)} \\
-QQ-Plot anhand einer Normalverteilung \\
-
-\pythoninline{plt.hist(series.T, bins=20, density=True)} \\
-Plotten eines Histograms mit der Fläche 1
+QQ-Plot anhand einer Normalverteilung
 
 \subsection*{Verteilungen}
 \pythoninline{cdf}: $P(X \leq x)$ \\
@@ -236,7 +241,9 @@ $P(X \leq 1)$ falls $X \sim Unif(0, 7)$ \\
 Dichte an der Stelle \textit{x} = 3 falls $X \sim Unif(0, 7)$ \\
 
 \pythoninline{st.uniform.rvs(size=3, loc=0, scale=7)} \\
-uniform verteilte Zufallszahlen, $X_i \sim Unif(0, 7)$ \\
+uniform verteilte Zufallszahlen, $X_i \sim Unif(0, 7)$
+
+\columnbreak
 
 \pythoninline{st.expon.cdf(x=4, loc=0, scale=1/3)} \\
 $P(X \leq 4)$ falls $X \sim Exp(3)$ \\
@@ -285,6 +292,7 @@ In diesem Fall das Integral: $\int_{0}^{60} x * (15 - \frac{x}{4})$
 \pythoninline{st.t.interval(alpha=0.95, df=12, loc=80.02, } \\
 \pythoninline{	scale=0.024/np.sqrt(13))} \\
 95\% Vertrauensintervall einer t-Verteilung \\
+wenn $n=13$, $\sigma=0.024$ und $u=80.02$ \\
 
 \pythoninline{st.norm.interval(alpha=0.99, loc=31, } \\
 \pythoninline{	scale=6/np.sqrt(10))} \\
@@ -307,7 +315,8 @@ Statistischer Test für ungepaarte Stichproben  \\
 Mann-Whitney U-Test (aka Wilcoxon Rank-sum Test) \\
 
 \pythoninline{st.ttest_1samp(series, 1).pvalue} \\
-P-Wert eines T-Tests für eine Series berechnen
+P-Wert eines T-Tests für eine Series berechnen \\
+mit der Nullhypothese $u=1$
 
 \subsection*{Varianzanalyse}
 \pythoninline{from statsmodels.graphics.factorplots} \\
@@ -319,6 +328,8 @@ Benötigte Bibliotheksfunktionen für Varianzanalysen \\
 
 \pythoninline{sns.stripplot(x="...", y="...", data=frame)} \\
 Varianz-Analyse mit Stripcharts zwischen \textit{x} und \textit{y} \\
+
+\columnbreak
 
 \pythoninline{sns.boxplot(x="...", y="...", data=frame)} \\
 Varianz-Analyse mit Boxplots zwischen \textit{x} und \textit{y} \\
@@ -342,7 +353,6 @@ Interaktionsplot erstellen \\
 - entlang der x-Achse der durch x festgelegte Faktor \\
 - für jede Stufe in trace wird dann eine Linie gezogen \\
 
-\pythoninline{fit = ols("steak_id~Treatment", data=frame).fit()} \\
 \pythoninline{anova_lm(fit)} \\
 Anova Tabelle berechnen \\
 
@@ -350,7 +360,7 @@ Anova Tabelle berechnen \\
 \pythoninline{fit = ols(formula, data=frame).fit()} \\
 Zweiweg-Varianzanalyse mit Blöcken \\
 
-\pythoninline{formula = "Y ~ C(Konz,Sum) * C(Temp,Sum)"} \\
+\pythoninline{formula = "Y ~ C(Konz, Sum) * C(Temp, Sum)"} \\
 \pythoninline{fit = ols(formula, data=frame).fit()} \\
 Faktorielle Experimente mit zwei Faktoren
 
@@ -362,15 +372,18 @@ Benötigte Bibliotheksfunktionen für Zeitreihen \\
 \pythoninline{col = frame["TravelDate"]} \\
 \pythoninline{frame["TravelDate"] = pd.DatetimeIndex(col)} \\
 \pythoninline{frame.set_index("TravelDate", inplace=True)} \\
-\pythoninline{AirP.plot()} \\
-Zeitreihe mit Datums-Index plotten \\
+Datums-Index einer Zeitreihe setzen
+
+\columnbreak
 
 \pythoninline{frame["Passengers"].rolling(window=12).mean()} \\
 Bewegendes Mittel (moving average) berechnen \\
+bei einer Fenstergrösse von 12 \\
 
 \pythoninline{seasonal_decompose(frame["Passengers"], } \\
 \pythoninline{	model="additive", freq=12).plot()} \\
-Zerlegen einer Zeitreihe in die verschiedenen Faktoren
+Zerlegen einer Zeitreihe in die verschiedenen Faktoren \\
+bei einer Fenstergrösse von 12
 
 \end{multicols*}
 \end{document}
