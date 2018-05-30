@@ -62,23 +62,17 @@ In diesem Beispiel: [1.0, 1.6, 2.2, 2.8, 3.4] \\
 1-dimensionales Array in 2-dimensionales umwandeln \\
 Neues Array hat \textit{n} Zeilen mit je \textit{m} Elementen \\
 
-\pythoninline{arr = np.random.choice(arr, size=1000)} \\
-Neues Array mit der Grösse \textit{size} erstellen und zufällig \\
-mit Werten aus dem übergebenen Array befüllen \\
-
-\columnbreak
-
-\pythoninline{arr = np.arange(1, 25)} \\
-\pythoninline{np.random.choice(arr, 24, replace=False)} \\
-Zahlen zufällig sortieren \\
-In diesem Beispiel die Zahlen 1 bis 24 \\
-
 \pythoninline{np.percentile(arr, q=[2.5, 97.5])} \\
 Werte der Quantile eines Datensatz anzeigen \\
 In diesem Beispiel die 2.5\%- und 97.5\%-Quantile \\
 
 \pythoninline{np.sum(arr > x)} \\
-Werte grösser als \textit{x} in einem Array zählen \\
+Werte grösser als \textit{x} in einem Array zählen
+
+\columnbreak
+
+\pythoninline{arr = np.cumsum(arr)} \\
+Kumulative Summe des Array \textit{arr} berechnen\\
 
 \pythoninline{np.nanmean(arr)} \\
 Mittelwert berechnen und NaN ignorieren \\
@@ -92,6 +86,26 @@ Jeder Werte des Array mit Index $i$, $x_i$-mal wiederholen \\
 \pythoninline{np.corrcoef(arr_x, arr_y)} \\
 Korrelationsmatrix berechnen
 
+\subsection*{Numpy Zufallszahlen}
+
+\pythoninline{arr = np.random.choice(arr, size=1000)} \\
+Neues Array mit der Grösse \textit{size} erstellen und zufällig \\
+mit Werten aus dem übergebenen Array befüllen \\
+
+\pythoninline{arr = np.arange(1, 25)} \\
+\pythoninline{np.random.choice(arr, 24, replace=False)} \\
+Zahlen zufällig sortieren \\
+In diesem Beispiel die Zahlen 1 bis 24 \\
+
+\pythoninline{np.random.seed(35)} \\
+Zufallszahlengenerator mit einem Wert initialisieren \\
+
+\pythoninline{np.random.seed()} \\
+Wert des Zufallszahlengenerator wieder löschen \\
+
+\pythoninline{np.random.normal(size=1000)} \\
+\textit{size} Standard-Normalverteilte Zufallszahlen generieren
+
 \subsection*{Pandas Series}
 \begin{python}
 series = pd.Series([79.98, 80.04, 80.02])
@@ -100,6 +114,8 @@ series = pd.Series(
   index=("mo", "di", "mi", "do", "fr")
 )
 \end{python}
+
+\columnbreak
 
 \pythoninline{series.sum()}: Die Summe der Elemente von \textit{series} \\
 \pythoninline{series.mean()}: Der Durchschnitt der Elemente von \textit{series} \\
@@ -156,7 +172,10 @@ frame = pd.DataFrame({
 \pythoninline{frame.drop(x, 1)}: Spalte \textit{x} löschen \\
 \pythoninline{frame.corr()}: Korrelationsmatrix berechnen
 
-\subsection*{DataFrame filtern}
+\subsection*{Umgang mit DataFrame}
+\pythoninline{copy = frame.copy()} \\
+Kopie eines DataFrame erstellen \\
+
 \pythoninline{frame.loc["mar":"mai","Luzern"]} \\
 Auf einen Bereiche in einem DataFrame zugreifen \\
 
@@ -166,6 +185,7 @@ Auf ausgewählt Elemente in einem DataFrame zugreifen \\
 \pythoninline{frame.sort_values(by='Luzern', ascending=False)} \\
 Daten im Frame nach einer Spalte sortieren \\
 
+\subsection*{DataFrame filtern}
 \pythoninline{frame.nsmallest(n, 'Luzern')} \\
 \pythoninline{frame.nlargest(n, 'Luzern')} \\
 Daten im Frame nach einer Spalte sortieren und dann \\ 
@@ -179,7 +199,9 @@ Daten anhand des Wertes einer Spalte filtern
 \pythoninline{plt.title("...")}: Titel des Plots festlegen \\
 \pythoninline{plt.xlabel("...")}: X-Achsenbeschriftung festlegen \\
 \pythoninline{plt.ylabel("...")}: Y-Achsenbeschriftung festlegen \\
-\pythoninline{plt.show()}: Plot anzeigen \\
+\pythoninline{plt.show()}: Plot anzeigen
+
+\columnbreak
 
 \pythoninline{plt.subplot(nrows=2, ncols=3, index=4)} \\
 \pythoninline{plt.subplot(234)} \\
@@ -196,8 +218,6 @@ Histogramm erstellen und Balken mit Farbe umrahmen \\
 
 \pythoninline{series.plot(kind="hist", normed=True, ...)}
 Normiertes Histogramm erstellen
-
-\columnbreak
 
 \pythoninline{plt.hist(series.T, bins=20, density=True)} \\
 Plotten eines Histograms mit der Fläche 1 \\
@@ -228,6 +248,8 @@ einem Polynom ersten Grades angeglichen wurden \\
 \pythoninline{st.probplot(arr, plot=plt)} \\
 QQ-Plot anhand einer Normalverteilung
 
+\columnbreak
+
 \subsection*{Verteilungen}
 \pythoninline{cdf}: $P(X \leq x)$ \\
 \pythoninline{ppf}: Quantile der Verteilung \\
@@ -242,8 +264,6 @@ Dichte an der Stelle \textit{x} = 3 falls $X \sim Unif(0, 7)$ \\
 
 \pythoninline{st.uniform.rvs(size=3, loc=0, scale=7)} \\
 uniform verteilte Zufallszahlen, $X_i \sim Unif(0, 7)$
-
-\columnbreak
 
 \pythoninline{st.expon.cdf(x=4, loc=0, scale=1/3)} \\
 $P(X \leq 4)$ falls $X \sim Exp(3)$ \\
@@ -271,7 +291,9 @@ Wert der Wahrscheinlichkeitsdichtefunktion an der Stelle $k$ \\
 $P[\overline{X}_{150} \leq 168]$ falls $u = 164$, $\hat{o} = 10$ und $T \sim t_{149}$ \\
 
 \pythoninline{st.t.ppf(0.05, df=v)} \\
-Quantile einer T-Verteilung mit \textit{v} Freiheitsgrade \\
+Quantile einer T-Verteilung mit \textit{v} Freiheitsgrade
+
+\columnbreak
 
 \pythoninline{st.norm.rvs(size=n)}\\
 generiert \textit{n} normalverteilte Zahlen \\
@@ -329,8 +351,6 @@ Benötigte Bibliotheksfunktionen für Varianzanalysen \\
 \pythoninline{sns.stripplot(x="...", y="...", data=frame)} \\
 Varianz-Analyse mit Stripcharts zwischen \textit{x} und \textit{y} \\
 
-\columnbreak
-
 \pythoninline{sns.boxplot(x="...", y="...", data=frame)} \\
 Varianz-Analyse mit Boxplots zwischen \textit{x} und \textit{y} \\
 
@@ -354,7 +374,9 @@ Interaktionsplot erstellen \\
 - für jede Stufe in trace wird dann eine Linie gezogen \\
 
 \pythoninline{anova_lm(fit)} \\
-Anova Tabelle berechnen \\
+Anova Tabelle berechnen
+
+\columnbreak
 
 \pythoninline{formula = "Y ~ C(Methode, Sum) + C(Batch, Sum)"} \\
 \pythoninline{fit = ols(formula, data=frame).fit()} \\
@@ -369,12 +391,15 @@ Faktorielle Experimente mit zwei Faktoren
 \pythoninline{	import seasonal_decompose} \\
 Benötigte Bibliotheksfunktionen für Zeitreihen \\
 
+\pythoninline{def boxcox(x, lambd):} \\
+\pythoninline{	return np.log(x) if (lambd == 0) \} \\
+\pythoninline{		else (x**lambd - 1) / lambd} \\
+BoxCox-Funktion definieren \\
+
 \pythoninline{col = frame["TravelDate"]} \\
 \pythoninline{frame["TravelDate"] = pd.DatetimeIndex(col)} \\
 \pythoninline{frame.set_index("TravelDate", inplace=True)} \\
 Datums-Index einer Zeitreihe setzen
-
-\columnbreak
 
 \pythoninline{frame["Passengers"].rolling(window=12).mean()} \\
 Bewegendes Mittel (moving average) berechnen \\
@@ -384,6 +409,13 @@ bei einer Fenstergrösse von 12 \\
 \pythoninline{	model="additive", freq=12).plot()} \\
 Zerlegen einer Zeitreihe in die verschiedenen Faktoren \\
 bei einer Fenstergrösse von 12
+
+\subsection*{Hilfe anzeigen}
+\pythoninline{help(np.random)} \\
+Hilfetext eines Packages anzeigen \\
+
+\pythoninline{help(np.random.choice)} \\
+Hilfetext einer Funktion anzeigen 
 
 \end{multicols*}
 \end{document}
