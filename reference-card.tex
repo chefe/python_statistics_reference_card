@@ -472,19 +472,35 @@ bei einer Fenstergrösse von 12 \\
 Zerlegen einer Zeitreihe in die verschiedenen Faktoren \\
 bei einer Fenstergrösse von 12 \\
 
-\pythoninline{seasonal_decompose(np.log(frame["Passengers"]),} \\ \pythoninline{	model="add").resid.plot()} \\
+\pythoninline{seasonal_decompose(np.log(frame["Passengers"]),} \\ 
+\pythoninline{	model="add").resid.plot()} \\
 Residuen Plot von logarithmierten Daten anzeigen
 
 \columnbreak
 
 \pythoninline{seasonal_decompose(frame["Passengers"], } \\ 
 \pythoninline{	model="mul").plot()} \\
-Zerlegen einer Zeitreihe mit dem multiplikativen Modell
+Zerlegen einer Zeitreihe mit dem multiplikativen Modell \\
+
+\pythoninline{frame.resample("A").mean()} \\
+Zeitreihe so umformen, dass jede Zeile den \\
+Jahresdurchschnitt eines Jahres enthält
 
 \subsection*{Allgemein}
 \pythoninline{from scipy.special import comb} \\
 \pythoninline{comb(N=5, k=3, exact=True)} \\
-Binomialkoeffizient berechnen, in diesem Beispiel $\binom{5}{3}$
+Binomialkoeffizient berechnen, in diesem Beispiel $\binom{5}{3}$ \\
+
+\pythoninline{import warnings} \\
+\pythoninline{warnings.filterwarnings('ignore')} \\
+Python-Warnungen ausblenden \\
+
+\pythoninline{import matplotlib} \\
+\pythoninline{matplotlib.rcParams['figure.dpi'] = 150} \\
+Plot grösser machen (für High-DPI-Screens) \\
+
+\pythoninline{%matplotlib inline} \\
+Plots in Jupyter-Notebook direkt anzeigen
 
 \subsection*{Hilfe anzeigen}
 \pythoninline{help(np.random)} \\
