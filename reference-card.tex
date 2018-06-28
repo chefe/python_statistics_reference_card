@@ -40,6 +40,13 @@ import pandas as pd
 import numpy as np
 \end{python}
 
+\subsection*{Hilfe anzeigen}
+\pythoninline{help(np.random)} \\
+Hilfetext eines Packages anzeigen \\
+
+\pythoninline{help(np.random.choice)} \\
+Hilfetext einer Funktion anzeigen 
+
 \subsection*{Numpy Basics}
 \pythoninline{np.e}: Konstante mit Wert von $e$ \\
 \pythoninline{np.pi}:  Konstante mit Wert von $\pi$ \\
@@ -72,9 +79,7 @@ Werte der Quantile eines Datensatz anzeigen \\
 In diesem Beispiel die 2.5\%- und 97.5\%-Quantile \\
 
 \pythoninline{np.sum(arr > x)} \\
-Werte grösser als \textit{x} in einem Array zählen
-
-\columnbreak
+Werte grösser als \textit{x} in einem Array zählen \\
 
 \pythoninline{arr = np.cumsum(arr)} \\
 Kumulative Summe des Array \textit{arr} berechnen\\
@@ -111,6 +116,8 @@ Wert des Zufallszahlengenerator wieder löschen \\
 \pythoninline{np.random.normal(size=1000)} \\
 \textit{size} Standard-Normalverteilte Zufallszahlen generieren
 
+\columnbreak
+
 \subsection*{Pandas Series}
 \begin{python}
 series = pd.Series([79.98, 80.04, 80.02])
@@ -119,8 +126,6 @@ series = pd.Series(
   index=("mo", "di", "mi", "do", "fr")
 )
 \end{python}
-
-\columnbreak
 
 \pythoninline{series.sum()}: Die Summe der Elemente von \textit{series} \\
 \pythoninline{series.prod()}: Das Produkt der Elemente von \textit{series} \\
@@ -155,6 +160,8 @@ Werte für eine Frame aus einem CSV auslesen \\
 \pythoninline{pd.read_table(r"./gamma.txt", } \\
 \pythoninline{	delim_whitespace=True)} \\
 leerzeichengetrennte Daten einlesen mit Pandas
+
+\columnbreak
 
 \subsection*{Pandas DataFrame}
 \begin{python}
@@ -191,23 +198,26 @@ Auf ausgewählt Elemente in einem DataFrame zugreifen \\
 \pythoninline{frame.sort_values(by='Luzern', ascending=False)} \\
 Daten im Frame nach einer Spalte sortieren \\
 
-\subsection*{DataFrame filtern}
 \pythoninline{frame.nsmallest(n, 'Luzern')} \\
 \pythoninline{frame.nlargest(n, 'Luzern')} \\
 Daten im Frame nach einer Spalte sortieren und dann \\ 
 \textit{n} Zeilen mit grösstem oder kleinstem Werte zurückgeben \\
 
-\pythoninline{mean = frame.mean()['Luzern']} \\
-\pythoninline{frame.loc[frame['Luzern'] < mean, :]} \\
+\pythoninline{filtered = frame[frame['Luzern'] == 0]} \\
 Daten anhand des Wertes einer Spalte filtern
+
+\columnbreak
+
+\pythoninline{mean = frame.mean()['Luzern']} \\
+\pythoninline{frame.loc[frame['Luzern'] < mean, 2:5]} \\
+Daten anhand des Wertes einer Spalte filtern und die \\
+Zeilen einschränken (in diesem Beispiel 2 bis 5)
 
 \subsection*{Matplotlib PyPlot}
 \pythoninline{plt.title("...")}: Titel des Plots festlegen \\
 \pythoninline{plt.xlabel("...")}: X-Achsenbeschriftung festlegen \\
 \pythoninline{plt.ylabel("...")}: Y-Achsenbeschriftung festlegen \\
-\pythoninline{plt.show()}: Plot anzeigen
-
-\columnbreak
+\pythoninline{plt.show()}: Plot anzeigen \\
 
 \pythoninline{plt.subplot(nrows=2, ncols=3, index=4)} \\
 \pythoninline{plt.subplot(234)} \\
@@ -239,7 +249,9 @@ Empirische kumulative Verteilungsfunktion plotten \\
 Boxplot von \textit{series} erstellen und Titel des Plots festlegen \\
 
 \pythoninline{frame.boxplot("T", by="Time")} \\
-Daten gruppieren und durch einen Boxplot anzeigen \\
+Daten gruppieren und durch einen Boxplot anzeigen
+
+\columnbreak
 
 \pythoninline{frame.plot(kind='scatter', x='wine', y='mor')} \\
 Streudiagramm mit zwei ausgewählten Achsen erstellen \\
@@ -253,8 +265,6 @@ einem Polynom ersten Grades angeglichen wurden \\
 
 \pythoninline{st.probplot(arr, plot=plt)} \\
 QQ-Plot anhand einer Normalverteilung
-
-\columnbreak
 
 \subsection*{Verteilungen}
 \pythoninline{cdf}: Kumulative Verteilungsfunktion $P(X \leq x)$ \\
@@ -284,7 +294,9 @@ $P(X \leq 4)$ falls $X \sim Exp(3)$ \\
 Dichte an der Stelle \textit{x} = 1 falls $X \sim Exp(3)$ \\
 
 \pythoninline{st.norm.cdf(x=130, loc=100, scale=15)} \\
-$P(X \leq 130)$ falls $X \sim \mathcal{N}(100, 15^2)$ \\
+$P(X \leq 130)$ falls $X \sim \mathcal{N}(100, 15^2)$
+
+\columnbreak
 
 \pythoninline{st.norm.ppf(q=0.05, loc=100, scale=15)} \\
 5\% Quantile falls $X \sim \mathcal{N}(100, 15^2)$ \\
@@ -296,9 +308,7 @@ $P(X \leq 1.5)$ falls $X \sim \mathcal{N}(0, 1^2)$ \\
 $P(X \leq 5100)$ falls $X \sim Bin(10000, 0.5)$ \\
 
 \pythoninline{st.binom.pmf(k=1000, n=1000, p=0.5)} \\
-Wert der Wahrscheinlichkeitsdichtefunktion an der Stelle $k$
-
-\columnbreak
+Wert der Wahrscheinlichkeitsdichtefunktion an der Stelle $k$ \\
 
 \pythoninline{st.t.cdf(x=168, df=149, loc=164, } \\
 \pythoninline{	scale=10/np.sqrt(150))} \\
@@ -321,6 +331,15 @@ generiert \textit{n} chi-verteilte Zahlen mit \textit{v} Freiheitsgrade
 \pythoninline{f = lambda x: x * (15 - x/4)} \\
 \pythoninline{ans, _ = quad(f, 0, 60)} \\
 In diesem Fall das Integral: $\int_{0}^{60} x * (15 - \frac{x}{4})$
+
+\subsection*{Gleichung lösen}
+\pythoninline{from sympy.solvers import solve} \\
+\pythoninline{from sympy import Symbol} \\
+\pythoninline{x = Symbol('x')} \\
+\pythoninline{solve(x**2/9000 * (15/2 - x/12) - 0.9, x)} \\
+Löst die Gleichung: $\frac{x^2}{9000} (\frac{15}{2} - \frac{x}{12}) - 0.9 = 0$
+
+\columnbreak
 
 \subsection*{Vertrauensintervall}
 \pythoninline{st.t.interval(alpha=0.95, df=12, loc=80.02, } \\
@@ -351,7 +370,8 @@ Mann-Whitney U-Test (aka Wilcoxon Rank-sum Test) \\
 
 \pythoninline{st.ttest_1samp(series, 1).pvalue} \\
 P-Wert eines T-Tests für eine Series berechnen \\
-mit der Nullhypothese $u=1$
+mit der Nullhypothese $u=1$ \\
+\textbf{!} \textit{pvalue} ist der P-Wert des zweiseitigen Tests
 
 \subsection*{Varianzanalyse}
 \pythoninline{from statsmodels.graphics.factorplots} \\
@@ -359,7 +379,9 @@ mit der Nullhypothese $u=1$
 \pythoninline{from statsmodels.stats.anova import anova_lm} \\
 \pythoninline{from statsmodels.formula.api import ols} \\
 \pythoninline{from patsy.contrasts import Sum} \\
-Benötigte Bibliotheksfunktionen für Varianzanalysen \\
+Benötigte Bibliotheksfunktionen für Varianzanalysen
+
+\columnbreak
 
 \pythoninline{sns.stripplot(x="...", y="...", data=frame)} \\
 Varianz-Analyse mit Stripcharts zwischen \textit{x} und \textit{y} \\
@@ -370,6 +392,14 @@ Varianz-Analyse mit Boxplots zwischen \textit{x} und \textit{y} \\
 \pythoninline{sns.distplot(Fstat, kde=False, norm_hist=True, 
 	hist_kws=dict(edgecolor="black", linewidth=2))} \\
 F-Statistik plotten \\
+
+\pythoninline{sns.boxplot(series.index.weekday, series)} \\
+\pythoninline{sns.boxplot(series.index.month, series)} \\
+\pythoninline{sns.boxplot(series.index.quarter, series)} \\
+\pythoninline{sns.boxplot(series.index.year, series)} \\
+Boxplot für gruppierte Daten nach Wochentag, Monat, \\
+Quartal, Jahr, ... anzeigen \\
+\textbf{!} \textit{series} muss ein DatetimeIndex haben  \\
 
 \begin{tcolorbox}
 \begin{python}
@@ -383,16 +413,16 @@ frame = pd.DataFrame({
 \pythoninline{fit = ols("steak_id~Treatment", data=frame).fit()} \\
 \pythoninline{fit.summary()} \\
 Gruppenmittelmodell berechnen zwischen der Id des \\ 
-Steaks und der ausgeführten Behandlung
-
-\columnbreak
+Steaks und der ausgeführten Behandlung \\
 
 \pythoninline{fit_pred = fit.get_prediction()} \\
 \pythoninline{fit_pred.conf_int()} \\
 Vertrauensintervalle für Gruppenmittelwerte \\
 
 \pythoninline{anova_lm(fit)} \\
-Anova Tabelle berechnen \\
+Anova Tabelle berechnen
+
+\columnbreak
 
 \begin{tcolorbox}
 \begin{python}
@@ -430,8 +460,6 @@ frame = pd.DataFrame({
 \pythoninline{fit = ols(formula, data=frame).fit()} \\
 Faktorielle Experimente mit den zwei \\
 Faktoren \textit{Konzentration} und \textit{Temperatur}
-
-\columnbreak
 
 \subsection*{Zeitreihen}
 \pythoninline{from statsmodels.tsa.seasonal } \\
@@ -474,9 +502,7 @@ bei einer Fenstergrösse von 12 \\
 
 \pythoninline{seasonal_decompose(np.log(frame["Passengers"]),} \\ 
 \pythoninline{	model="add").resid.plot()} \\
-Residuen Plot von logarithmierten Daten anzeigen
-
-\columnbreak
+Residuen Plot von logarithmierten Daten anzeigen \\
 
 \pythoninline{seasonal_decompose(frame["Passengers"], } \\ 
 \pythoninline{	model="mul").plot()} \\
@@ -485,6 +511,8 @@ Zerlegen einer Zeitreihe mit dem multiplikativen Modell \\
 \pythoninline{frame.resample("A").mean()} \\
 Zeitreihe so umformen, dass jede Zeile den \\
 Jahresdurchschnitt eines Jahres enthält
+
+\columnbreak
 
 \subsection*{Allgemein}
 \pythoninline{from scipy.special import comb} \\
@@ -501,13 +529,6 @@ Plot grösser machen (für High-DPI-Screens) \\
 
 \pythoninline{%matplotlib inline} \\
 Plots in Jupyter-Notebook direkt anzeigen
-
-\subsection*{Hilfe anzeigen}
-\pythoninline{help(np.random)} \\
-Hilfetext eines Packages anzeigen \\
-
-\pythoninline{help(np.random.choice)} \\
-Hilfetext einer Funktion anzeigen 
 
 \end{multicols*}
 \end{document}
